@@ -5,16 +5,22 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+    //Controllers
     public CharacterController controller;
     PlayerInputActions inputActions; 
+
+
+    //Movement Stuff
+    float xMoveValue;     float zMoveValue;     public float moveSpeed = 1f; 
     Vector2 movementInput;
 
-
-    float xMoveValue;     float zMoveValue;     public float moveSpeed = 1f;
+    //Attack Stuff
+    public GameObject projectile;
+    public float shootForce = 5f;
 
     private void Start()
     {
-        inputActions = new PlayerInputActions();         inputActions.Enable();         inputActions.Player.Move.performed += ctx => movementInput = ctx.ReadValue<Vector2>();         inputActions.Player.Move.canceled += ctx => movementInput = ctx.ReadValue<Vector2>();         //inputActions.Player.Attack.performed += ctx => Attack();
+        inputActions = new PlayerInputActions();         inputActions.Enable();         inputActions.Player.Move.performed += ctx => movementInput = ctx.ReadValue<Vector2>();         inputActions.Player.Move.canceled += ctx => movementInput = ctx.ReadValue<Vector2>();         inputActions.Player.Attack.performed += ctx => Attack();
     }
 
     // Update is called once per frame
@@ -42,5 +48,18 @@ public class PlayerController : MonoBehaviour
 
 
         controller.Move(new Vector3(xMoveValue * Time.fixedDeltaTime, 0f , zMoveValue * Time.fixedDeltaTime));
+    }
+
+
+
+    void Attack()
+    {
+        // Instantiate the projectile at the position and rotation of this transform
+        Debug.Log("What");
+
+        var clone = Instantiate(projectile, transform.position, transform.rotation);
+
+        // Add force to the cloned object in the object's forward direction
+        clone.GetComponent<Rigidbody>().AddForce(clone.transform.right * shootForce); //I dont uderstand world directions fml
     }
 }
