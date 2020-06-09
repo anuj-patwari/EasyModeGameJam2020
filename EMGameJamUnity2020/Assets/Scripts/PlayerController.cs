@@ -18,9 +18,15 @@ public class PlayerController : MonoBehaviour
     public GameObject projectile;
     public float shootForce = 5f;
 
+    //Camera
+    [SerializeField]Camera cam;
+    [SerializeField] float xOffset;
+    [SerializeField] float zOffset;
+    [SerializeField] float smoothTime;
+
     private void Start()
     {
-        inputActions = new PlayerInputActions();         inputActions.Enable();         inputActions.Player.Move.performed += ctx => movementInput = ctx.ReadValue<Vector2>();         inputActions.Player.Move.canceled += ctx => movementInput = ctx.ReadValue<Vector2>();         inputActions.Player.Attack.performed += ctx => Attack();
+        inputActions = new PlayerInputActions();         inputActions.Enable();         inputActions.Player.Move.performed += ctx => movementInput = ctx.ReadValue<Vector2>();         inputActions.Player.Move.canceled += ctx => movementInput = ctx.ReadValue<Vector2>();        // inputActions.Player.Attack.performed += ctx => Attack();
     }
 
     // Update is called once per frame
@@ -31,7 +37,7 @@ public class PlayerController : MonoBehaviour
         Vector3 mousePos = Mouse.current.position.ReadValue();
         mousePos.z = 5.23f;
 
-        Vector3 objectPos = Camera.main.WorldToScreenPoint(transform.position);
+        Vector3 objectPos = cam.WorldToScreenPoint(transform.position);
         mousePos.x = mousePos.x - objectPos.x;
         mousePos.y = mousePos.y - objectPos.y;
 
@@ -48,6 +54,20 @@ public class PlayerController : MonoBehaviour
 
 
         controller.Move(new Vector3(xMoveValue * Time.fixedDeltaTime, 0f , zMoveValue * Time.fixedDeltaTime));
+
+        //Camera
+
+        xOffset = transform.right.x * 2;
+        zOffset = transform.right.z * 2;
+        var targetPosition = new Vector3(transform.position.x + xOffset, cam.transform.position.y, transform.position.z + zOffset + (-14));
+        cam.transform.position = Vector3.Lerp(cam.transform.position, targetPosition, smoothTime);
+        Debug.Log(transform.right);
+
+        //Input
+        if(Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            Attack();
+        }
     }
 
 
