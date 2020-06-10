@@ -19,14 +19,21 @@ public class PlayerController : MonoBehaviour
     public float shootForce = 5f;
 
     //Camera
-    [SerializeField]Camera cam;
+    [SerializeField] Camera cam;
     [SerializeField] float xOffset;
     [SerializeField] float zOffset;
     [SerializeField] float smoothTime;
 
+    //Door and Key
+    int[] keys;
+    int counter;
+
     private void Start()
     {
-        inputActions = new PlayerInputActions();         inputActions.Enable();         inputActions.Player.Move.performed += ctx => movementInput = ctx.ReadValue<Vector2>();         inputActions.Player.Move.canceled += ctx => movementInput = ctx.ReadValue<Vector2>();        // inputActions.Player.Attack.performed += ctx => Attack();
+        inputActions = new PlayerInputActions();         inputActions.Enable();         inputActions.Player.Move.performed += ctx => movementInput = ctx.ReadValue<Vector2>();         inputActions.Player.Move.canceled += ctx => movementInput = ctx.ReadValue<Vector2>();
+        // inputActions.Player.Attack.performed += ctx => Attack();
+
+        keys = new int[10];
     }
 
     // Update is called once per frame
@@ -61,7 +68,7 @@ public class PlayerController : MonoBehaviour
         zOffset = transform.right.z * 2;
         var targetPosition = new Vector3(transform.position.x + xOffset, cam.transform.position.y, transform.position.z + zOffset + (-14));
         cam.transform.position = Vector3.Lerp(cam.transform.position, targetPosition, smoothTime);
-        Debug.Log(transform.right);
+        //Debug.Log(transform.right);
 
         //Input
         if(Input.GetKeyDown(KeyCode.Mouse0))
@@ -75,11 +82,32 @@ public class PlayerController : MonoBehaviour
     void Attack()
     {
         // Instantiate the projectile at the position and rotation of this transform
-        Debug.Log("What");
+        //Debug.Log("What");
 
         var clone = Instantiate(projectile, transform.position, transform.rotation);
 
         // Add force to the cloned object in the object's forward direction
         clone.GetComponent<Rigidbody>().AddForce(clone.transform.right * shootForce); //I dont uderstand world directions fml
+    }
+
+    public void AddKeyID(int keyID)
+    {
+        keys[counter] = keyID;
+        counter++;
+    }
+
+
+    public bool SearchForKey (int keyID)
+    {
+        for (var i = 0; i < keys.Length; i++)
+           {
+                if (keys[i] == keyID)
+                {
+                    return true;
+                }
+            }
+
+        return false;
+     
     }
 }

@@ -2,8 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BulletBehaviour : MonoBehaviour
+public class EnemyBehaviour : MonoBehaviour
 {
+
+    public enum EnemyType
+    { 
+        STEALANDRUN,
+        IDLE,
+        ARREST
+
+     }
+    public EnemyType enemyType;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -14,13 +24,5 @@ public class BulletBehaviour : MonoBehaviour
     void Update()
     {
         
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.tag != "Player" && !other.isTrigger)
-        {
-            Destroy(gameObject);
-        }
     }
 }
