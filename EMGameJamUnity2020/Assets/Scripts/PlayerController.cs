@@ -22,6 +22,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] Camera cam;
     [SerializeField] float xOffset;
     [SerializeField] float zOffset;
+    [SerializeField] float zOffsetAdd;
+    [SerializeField] float xoffsetAdd;
     [SerializeField] float smoothTime;
 
     //Door and Key
@@ -66,7 +68,7 @@ public class PlayerController : MonoBehaviour
 
         xOffset = transform.right.x * 2;
         zOffset = transform.right.z * 2;
-        var targetPosition = new Vector3(transform.position.x + xOffset, cam.transform.position.y, transform.position.z + zOffset + (-14));
+        var targetPosition = new Vector3(transform.position.x + (xOffset + xoffsetAdd), cam.transform.position.y, transform.position.z + zOffset + (zOffsetAdd));
         cam.transform.position = Vector3.Lerp(cam.transform.position, targetPosition, smoothTime);
         //Debug.Log(transform.right);
 

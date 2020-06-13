@@ -3072,13 +3072,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1847295985}
-  m_LocalRotation: {x: 0.35278428, y: -0, z: -0, w: 0.93570477}
-  m_LocalPosition: {x: 14.77, y: 15, z: -25.73}
+  m_LocalRotation: {x: 0.23911765, y: -0.36964378, z: 0.09904577, w: 0.8923991}
+  m_LocalPosition: {x: 29.9, y: 15, z: -29.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 41.315002, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 30, y: -45, z: 0}
 --- !u!1 &1850746298 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 721056895991426811, guid: 747b252ea36ed394cbba505cbc736792,
@@ -3292,7 +3292,9 @@ MonoBehaviour:
   shootForce: 1000
   cam: {fileID: 1847295989}
   xOffset: 0
-  zOffset: -14
+  zOffset: 14
+  zOffsetAdd: -16
+  xoffsetAdd: 14
   smoothTime: 0.1
 --- !u!136 &2003135440
 CapsuleCollider:
