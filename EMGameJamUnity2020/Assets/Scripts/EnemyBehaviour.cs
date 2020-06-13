@@ -14,6 +14,8 @@ public class EnemyBehaviour : MonoBehaviour
      }
     public EnemyType enemyType;
 
+    [SerializeField] float Range;
+
     // Start is called before the first frame update
     void Start()
     {
